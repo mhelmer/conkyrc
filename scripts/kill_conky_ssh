@@ -1,0 +1,2 @@
+#!/bin/bash
+pkill -f "ssh -Nn -o ControlMaster=auto -o ControlPath=/tmp/ssh-conky"

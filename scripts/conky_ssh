@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" $1 "$2" 2>/dev/null

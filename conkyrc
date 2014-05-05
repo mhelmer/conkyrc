@@ -188,19 +188,19 @@ NO \
 ${endif}
 
 ${font arial black:size=7}INTERACTIVE JOBS > 1h${font}
-${execi 900 conky_ssh lindgren "$CONKY_SCRIPTS/interabuse"}
+${execi 900 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/interabuse"}
 #
 ${if_existing /tmp/ssh-conky@lindgren:22}
-${execpi 300 conky_ssh lindgren "$CONKY_SCRIPTS/showmyq"}
+${execpi 300 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/showmyq"}
 ${endif}\
 #
 ${if_existing /tmp/ssh-conky@ferlin:22}
 ${font arial black:size=7}EASY STATS:
 FERLIN: ${font}\
-${execi 300 conky_ssh ferlin "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
+${execi 300 $CONKY_SCRIPTS/conky_ssh ferlin "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
 ${endif}\
 #
 ${if_existing /tmp/ssh-conky@povel:22}\
 ${font arial black:size=7}POVEL: ${font}\
-${execi 300 conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
+${execi 300 $CONKY_SCRIPTS/conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
 ${endif}\

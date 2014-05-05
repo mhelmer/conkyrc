@@ -6,9 +6,9 @@ case $1 in
 			ping -c1 -q $machine >/dev/null && echo YES || echo NO
 		;;
 	load)
-		conky_ssh $machine "cat /proc/loadavg" 2> /dev/null | awk '{print $1}'
+		$CONKY_SCRIPTS/conky_ssh $machine "cat /proc/loadavg" 2> /dev/null | awk '{print $1}'
 		;;
 	top)
-		conky_ssh $machine "top -n 1 -b | head -n8 | tail -n1" | awk '{ printf("%s: %s @ %.1f% \n", $2, $12, $9) }'
+		$CONKY_SCRIPTS/conky_ssh $machine "top -n 1 -b | head -n8 | tail -n1" | awk '{ printf("%s: %s @ %.1f% \n", $2, $12, $9) }'
 		;;
 esac

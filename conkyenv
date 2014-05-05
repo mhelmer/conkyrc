@@ -1,0 +1,5 @@
+#!/bin/bash
+export MODULEPATH=/afs/nada.kth.se/home/x/u1bvuhyx/mhelm.0/shared/modules/sys:$MODULEPATH
+module add conky
+export CONKYRC=$HOME/conky/conkyrc
+export CONKY_SCRIPTS=$HOME/conky/scripts

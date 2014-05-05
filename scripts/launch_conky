@@ -1,0 +1,3 @@
+#!/bin/bash
+$CONKY_SCRIPTS/conky_multiplex
+conky -c $CONKYRC
