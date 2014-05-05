@@ -1,0 +1,16 @@
+#!/bin/bash
+
+case "$1" in
+	free)
+		fs lq $2 | tail -n1 | awk  '{ printf("%.1fGiB\n", ($2-$3)/1024^2) }'
+	;;
+	used)
+		fs lq -human $2 | tail -n1 | awk  '{ printf("%.1fGiB\n", $3) }'
+	;;
+	size)
+		fs lq -human $2 | tail -n1 | awk  '{ printf("%.1fGiB\n", $2) }'
+	;;
+	percent)
+		fs lq $2 | tail -n1 | awk  '{ print $4 }' | sed "s/\%//g"
+	;;
+esac

@@ -1,0 +1,47 @@
+#!/usr/bin/env python2.7
+"""
+Let's make this a bit smarter, to match any group like "Defined/Up  : \d+[A-Z]"
+and then store in a dict.
+"""
+from __future__ import print_function
+import subprocess
+import time
+import re
+
+prog_defined = re.compile("^Defined\s+:")
+prog_up = re.compile("^Up\s+:")
+
+# should figure this one out :)
+prog_all_res = re.compile(r'^\w+\s+:((?:\s+\d+[A-Z])*)')
+prog_type_count = re.compile(r'(\d+)([A-Z])')
+
+prog_up_p = re.compile("^Up\s+:\s+(\d+)P")
+prog_up_q = re.compile("^Up\s+:\s+(?:\d+P\s+)?(\d+)Q")
+
+spstatus = subprocess.Popen(["spstatus"], stdout=subprocess.PIPE).communicate()[0]
+
+defined = {}
+up = {}
+
+for line in spstatus.splitlines():
+    if prog_defined.search(line):
+        m_gen = prog_all_res.findall(line)
+        for r in m_gen[0].split():
+            m_def = prog_type_count.match(r)
+            defined[m_def.group(2)] = m_def.group(1)
+
+    if prog_up.search(line):
+        m_gen = prog_all_res.findall(line)
+        for r in m_gen[0].split():
+            m_def = prog_type_count.match(r)
+            up[m_def.group(2)] = m_def.group(1)
+
+res_list = []
+for res in defined.iterkeys():
+    is_up = up[res] if res in up else 0
+    res_list.append(
+        '{up}/{defined} {res}'.format(
+            up=is_up, defined=defined[res], res=res)
+    )
+
+print(', '.join(map(str, res_list)))

@@ -1,0 +1,62 @@
+#!/usr/bin/env python2.6
+import subprocess
+import time
+import re
+
+prog_aprun = re.compile("aprun")
+
+apstat = subprocess.Popen(["apstat", "-ar"], stdout=subprocess.PIPE).communicate()[0]
+apstat_inter = []
+for line in apstat.splitlines():
+    if prog_aprun.search(line):
+        apstat = subprocess.Popen(["apstat", "-aA", line.split()[1]],
+                                  stdout=subprocess.PIPE).communicate()[0]
+        apstat_inter.append(apstat.splitlines()[2])
+
+t1 = time.strptime("1h00m", "%Hh%Mm")
+abuse = False
+for line in apstat_inter:
+    linesp = line.split()
+    if t1 < time.strptime(linesp[5], "%Hh%Mm"):
+        abuse = True
+        print('{user}: {time} {pes} ({apid}) {command}'.format(
+            user=linesp[2],
+            pes=linesp[3],
+            time=linesp[5],
+            command=linesp[7],
+            apid=linesp[0]))
+if not abuse:
+    print('No such jobs')
+
+
+"""
+Find out how many nodes are in use
+Currently not checking for UP/DOWN, because I'm not sure how to match a DOWN
+node.
+"""
+
+# match an I in the 4th column
+prog_inter = re.compile("^(?:\s+\w+){3,3}\s+I")
+# match a digit in the 6th column
+prog_inter_used = re.compile("^(?:\s+\w+){5,5}\s+\d+")
+
+apstat = subprocess.Popen(["apstat", "-n"], stdout=subprocess.PIPE).communicate()[0]
+
+inter_nodes_tot = 0
+inter_nodes_used = 0
+inter_jobs = 0
+#inter_nodes_up = 0
+
+for line in apstat.splitlines():
+    if prog_inter.search(line):
+        inter_nodes_tot += 1
+        if prog_inter_used.search(line):
+            inter_nodes_used += 1
+
+apstat = subprocess.Popen(["apstat", "-ar"], stdout=subprocess.PIPE).communicate()[0]
+prog_inter = re.compile("^(?:\s+\w+){2,2}\s+aprun")
+for line in apstat.splitlines():
+    if prog_inter.search(line):
+        inter_jobs += 1
+
+print inter_nodes_used, "/", inter_nodes_tot, "nodes in use by", inter_jobs, "jobs"
