@@ -10,8 +10,8 @@ Install conky through your package manager, build it yourself or use my module f
 It's located at:
 
 ```
-/afs/nada.kth.se/home/x/u1bvuhyx/mhelm.0/shared/modules/sys/conky
-/afs/nada.kth.se/home/x/u1bvuhyx/mhelm.0/shared/vol/conky/current/this
+/afs/pdc.kth.se/misc/pdc/support-group/modules/Modules/sys/conky
+/afs/pdc.kth.se/misc/pdc/support-group/modules/conky/current/this
 ```
 
 See below how to use it.
@@ -27,7 +27,7 @@ Get conkyrc and the scripts
 
 ```bash
 # Clone my repo
-git clone ~mhelm/mhelm.0/shared/git/conky ~/conky
+git clone /afs/pdc.kth.se/misc/pdc/support-group/repos/conky-monitoring.git ~/conky
 ```
 
 Starting Conky
@@ -54,8 +54,7 @@ If you don't want to let the python script kill the backgrounded SSH-sessions, y
 
 .conkyrc
 --------
-The whole thing looks like the image at the top. My `conkyrc` and the scripts can be found in `~mhelm/mhelm.0/shared/git/conky`.
-It's in a git repo, that should be cloned to your home directory.
+The whole thing looks like the image at the top. My `conkyrc` and the scripts is in a git repo located at `/afs/pdc.kth.se/misc/pdc/support-group/repos/conky-monitoring.git`.
 
 Below follows a small rundown of the different parts.
 

@@ -1,10 +1,9 @@
 #!/bin/bash
-export MODULEPATH=/afs/nada.kth.se/home/x/u1bvuhyx/mhelm.0/shared/modules/sys:$MODULEPATH
+export MODULEPATH=/afs/pdc.kth.se/misc/pdc/support-group/modules/Modules/sys:$MODULEPATH
 
 module add conky
 export CONKYRC=$HOME/conky/conkyrc
 export CONKY_SCRIPTS=$HOME/conky/scripts
-
 
 # Start conky and background ssh-processes
 $CONKY_SCRIPTS/launch_conky &
