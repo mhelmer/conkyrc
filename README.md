@@ -1,0 +1,144 @@
+Desktop candy and scripts for PDC
+=================================
+The whole thing looks like the image below. Scroll down for info!
+
+![Full screenshot](img/conky.png)
+
+Getting Conky
+--------------
+Install conky through your package manager, build it yourself or use my module for NADABUNTU.
+It's located at:
+
+```
+/afs/nada.kth.se/home/x/u1bvuhyx/mhelm.0/shared/modules/sys/conky
+/afs/nada.kth.se/home/x/u1bvuhyx/mhelm.0/shared/vol/conky/current/this
+```
+
+See below how to use it.
+
+###If not using the module
+Conky can be downloaded from [this webpage](http://conky.sourceforge.net) at sourceforge.
+On a NADABUNTU computer, I had to build the dependency lua, [link here](http://www.lua.org/download.html).
+
+Build and install it locally, or from your package manager. Ask me if you can't figure it out.
+
+Get conkyrc and the scripts
+---------------------------
+
+```bash
+# Clone my repo
+git clone ~mhelm/mhelm.0/shared/git/conky ~/conky
+```
+
+Starting Conky
+--------------
+To avoid creating lots of connections, the `conky_multiplex` script is executed before starting conky.
+This sets up multiplexed SSH sessions to ellen, ferlin, lindgren, povel and zorn.
+These are then used by conky through the `conky_ssh` script.
+If this is not desired, you just need to change that script, as well as some lines in `.conkyrc` that checks for existance of the SSH sockets.
+
+In the repo, there is a file called `conky_env`. It will set up some environment variables, load the conky module, start conky and finally launch a python script to kill the SSH-sessions upon logout.
+
+To start conky on a NADABUNTU machine, if cloned as above, simply do:
+
+```bash
+~/conky/conky_env
+```
+
+Then close the terminal. This file should be customized if you want to do things differently.
+
+If you don't want to let the python script kill the backgrounded SSH-sessions, you can kill them yourself using
+```bash
+~/conky/scipts/kill_conky_ssh
+```
+
+.conkyrc
+--------
+The whole thing looks like the image at the top. My `conkyrc` and the scripts can be found in `~mhelm/mhelm.0/shared/git/conky`.
+It's in a git repo, that should be cloned to your home directory.
+
+Below follows a small rundown of the different parts.
+
+###AFS-volumes
+![AFS screenshot](img/conky_afs.png)
+
+####`.conkyrc` example
+Checking AFS stats on home directory every 10 minutes.
+
+```
+${font arial black:size=7}VOLUME${goto 100}TYPE${goto 150}USED${goto 210}FREE${alignr 1}SIZE$font
+${font arial black:size=7}HOME:$font${goto 100}afs${goto 150}${execi 600 $CONKY_SCRIPTS/fs-conky used ~}${goto 210}${execi 600 $CONKY_SCRIPTS/fs-conky free ~}${alignr}${execi 600 $CONKY_SCRIPTS/fs-conky size ~}
+${execibar 600 $CONKY_SCRIPTS/fs-conky percent ~}
+```
+
+For more details, see the `scripts/fs-conky`.
+
+###Ping, load and top on a remote machine
+Part that checks status of different machines. This uses multiplexed SSH sessions in the given `conky_ssh` script.
+Conky tests if the machine responds to ping using the `machine-status` script. If it responds, it checks the load and top (cpu) process on that host.
+
+![Machine status screenshot](img/conky_machine_status.png)
+
+####`.conkyrc` example
+Checking machine status on Ellen every other minute.
+
+```
+${font arial black:size=7}CLUSTER${goto 75}PING${goto 115}LOAD${goto 150}TOP$font
+${font arial black:size=7}ELLEN${font} ${goto 75}\
+${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping ellen}" == "YES"}\
+YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load ellen} \
+	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top ellen} \
+${else} \
+NO \
+${endif}
+```
+
+For more details, see the `scripts/machine-status`.
+
+###Use and abuse of interactive nodes on Lindgren
+Checks for interactive jobs that has been running for more than 1h.
+If such jobs are found, stats are printed about those jobs.
+It also reports how many of the interative nodes are in use and how many interactive jobs are running.
+
+![Interabuse screenshot](img/conky_interabuse.png)
+
+####`.conkyrc` example
+Check the interactive nodes on Lindgren every 15 minutes.
+
+```
+${font arial black:size=7}INTERACTIVE JOBS > 1h${font}
+${execi 900 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/interabuse"}
+```
+
+See `scripts/interabuse` for more details.
+
+###Lindgren queue
+Reports stats of your jobs in the queue. Active, idle and blocked.
+If you have no jobs in the queue, it reports the number of eligeble jobs in the queue.
+
+![Lindgren queue screenshot](img/conky_lindgren_queue.png)
+
+This one prints output to be parsed by conky, so the formatting has to be changed in the script if desired.
+####`.conkyrc` example
+Check the queue every 5 min.
+
+```
+${execpi 300 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/showmyq"}
+```
+
+See `scripts/showmyq` for details.
+
+###Stats from EASY
+Reports how many nodes are up/defined on a machine running EASY.
+
+![EASY stats screenshot](img/conky_easy_stats.png)
+
+####`.conkyrc` example
+Check EASY stats on povel every 5 min.
+
+```
+${font arial black:size=7}POVEL: ${font}\
+${execi 300 $CONKY_SCRIPTS/conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
+```
+
+See `scripts/easystat` for more details.
