@@ -99,6 +99,12 @@ ${voffset -71}${goto 135}${font arial black:size=15}${color orange}${time %d}${c
 ${voffset -33}${goto 170}${font arial black:size=12}${time %B %Y}
 ${voffset -7}${goto 170}${font arial black:size=9}${time %A, week %V}
 ${font arial black:size=7}USERS: ${font} ${execi 60 $CONKY_SCRIPTS/who_compact}
+#
+${if_match "${execi 3600 cd $CONKY_SCRIPTS && git fetch origin master && git log HEAD..origin/master --oneline | wc -l}" == "0"}\
+${else}\
+${font arial black:size=7}CONKY:${font} Behind origin/master by ${execi 3600 cd $CONKY_SCRIPTS && git log HEAD..origin/master --oneline | wc -l} commits
+${endif}\
+#
 ${font arial black:size=10}${color orange}CPU${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
 ${font arial black:size=7}MODEL: $font ${execi 1000 cat /proc/cpuinfo | grep -m 1 "model name" | cut -c14-37} $alignr ${freq_g (1)} GHz
 ${font arial black:size=7}USAGE (AVG): $font${cpu cpu0}% $alignr${font arial black:size=7}$color
