@@ -1,4 +1,4 @@
 #!/bin/bash	
-for m in ${MACHINES//:/}; do
+for m in ${MACHINES//:/$'\n'}; do
 	ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" $m &
 done
