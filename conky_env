@@ -2,8 +2,8 @@
 export MODULEPATH=/afs/pdc.kth.se/misc/pdc/support-group/modules/Modules/sys:$MODULEPATH
 
 module add conky
-export CONKYRC=$HOME/conky/conkyrc
-export CONKY_SCRIPTS=$HOME/conky/scripts
+
+source $HOME/conky/settings
 
 # Start conky and background ssh-processes
 $CONKY_SCRIPTS/launch_conky &

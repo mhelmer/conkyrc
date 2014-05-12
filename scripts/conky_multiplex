@@ -1,6 +1,4 @@
 #!/bin/bash	
-ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" ellen &
-ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" ferlin &
-ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" lindgren &
-ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" povel &
-ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" zorn &
+for m in ${MACHINES//:/}; do
+	ssh -Nn -o "ControlMaster=auto" -o "ControlPath=/tmp/ssh-conky@%h:%p" $m &
+done

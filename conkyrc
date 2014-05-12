@@ -98,11 +98,11 @@ ${voffset 0}${font arial black:size=30}${time %H:%M}
 ${voffset -71}${goto 135}${font arial black:size=15}${color orange}${time %d}${color}
 ${voffset -33}${goto 170}${font arial black:size=12}${time %B %Y}
 ${voffset -7}${goto 170}${font arial black:size=9}${time %A, week %V}
-${font arial black:size=7}USERS: ${font} ${execi 60 $CONKY_SCRIPTS/who_compact}
+${font arial black:size=7}USERS: ${font} ${execi 60 $CONKY_HOME/scripts/who_compact}
 #
-${if_match "${execi 3600 cd $CONKY_SCRIPTS && git fetch origin master && git log HEAD..origin/master --oneline | wc -l}" == "0"}\
+${if_match "${execi 3600 cd $CONKY_HOME/scripts && git fetch origin master && git log HEAD..origin/master --oneline | wc -l}" == "0"}\
 ${else}\
-${font arial black:size=7}CONKY:${font} Behind origin/master by ${execi 3600 cd $CONKY_SCRIPTS && git log HEAD..origin/master --oneline | wc -l} commits
+${font arial black:size=7}CONKY:${font} Behind origin/master by ${execi 3600 cd $CONKY_HOME/scripts && git log HEAD..origin/master --oneline | wc -l} commits
 ${endif}\
 #
 ${font arial black:size=10}${color orange}CPU${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
@@ -121,10 +121,10 @@ ${diskiograph_write 20, 145}${goto 170}${diskiograph_read 20, 145}
 ${font arial black:size=7}VOLUME${goto 100}TYPE${goto 150}USED${goto 210}FREE${alignr 1}SIZE$font
 #${font arial black:size=7}HOME:$font${goto 100}${fs_type /home}${goto 150}${fs_used /home}${goto 210}${fs_free /home}${alignr}${fs_size /home}
 #${fs_bar 4 /home}$color
-${font arial black:size=7}HOME:$font${goto 100}afs${goto 150}${execi 600 $CONKY_SCRIPTS/fs-conky used ~}${goto 210}${execi 600 $CONKY_SCRIPTS/fs-conky free ~}${alignr}${execi 600 $CONKY_SCRIPTS/fs-conky size ~}
-${execibar 600 $CONKY_SCRIPTS/fs-conky percent ~}
-#${font arial black:size=7}MHELM.0:$font${goto 100}afs${goto 150}${execi 600 $CONKY_SCRIPTS/fs-conky used ~/mhelm.0}${goto 210}${execi 600 $CONKY_SCRIPTS/fs-conky free ~/mhelm.0}${alignr}${execi 600 $CONKY_SCRIPTS/fs-conky size ~/mhelm.0}
-#${execibar 600 $CONKY_SCRIPTS/fs-conky percent ~/mhelm.0}
+${font arial black:size=7}HOME:$font${goto 100}afs${goto 150}${execi 600 $CONKY_HOME/scripts/fs-conky used ~}${goto 210}${execi 600 $CONKY_HOME/scripts/fs-conky free ~}${alignr}${execi 600 $CONKY_HOME/scripts/fs-conky size ~}
+${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~}
+#${font arial black:size=7}MHELM.0:$font${goto 100}afs${goto 150}${execi 600 $CONKY_HOME/scripts/fs-conky used ~/mhelm.0}${goto 210}${execi 600 $CONKY_HOME/scripts/fs-conky free ~/mhelm.0}${alignr}${execi 600 $CONKY_HOME/scripts/fs-conky size ~/mhelm.0}
+#${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~/mhelm.0}
 ${font arial black:size=7}NOBACKUP:$font${goto 100}${fs_type /NOBACKUP}${goto 150}${fs_used /NOBACKUP}${goto 210}${fs_free /NOBACKUP}${alignr}${fs_size /NOBACKUP}
 ${fs_bar 6 /NOBACKUP}$color
 ${font arial black:size=7}ROOT:$font${goto 100}${fs_type /}${goto 150}${fs_used /}${goto 210}${fs_free /}${alignr}${fs_size /}
@@ -156,57 +156,22 @@ ${top_mem name 2} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
 #
 # CLUSTER MONITORING
 ${font arial black:size=10}${color orange}CLUSTER${color}${font arial black:size=10}MONITORING${color orange} ${hr 2}$color$font
-${font arial black:size=7}CLUSTER${goto 75}PING${goto 115}LOAD${goto 150}TOP$font
-${font arial black:size=7}ELLEN${font} ${goto 75}\
-${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping ellen}" == "YES"}\
-YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load ellen} \
-	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top ellen} \
-${else} \
-NO \
-${endif}
-${font arial black:size=7}FERLIN${font}${goto 75}\
-${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping ferlin}" == "YES"}\
-YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load ferlin} \
-	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top ferlin} \
-${else} \
-NO \
-${endif}
-${font arial black:size=7}LINDGREN${font}${goto 75}\
-${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping lindgren}" == "YES"}\
-YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load lindgren} \
-	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top lindgren} \
-${else} \
-NO \
-${endif}
-${font arial black:size=7}POVEL${font}${goto 75}\
-${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping povel}" == "YES"}\
-YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load povel} \
-	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top povel} \
-${else} \
-NO \
-${endif}
-${font arial black:size=7}ZORN${font}${goto 75}\
-${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping zorn}" == "YES"}\
-YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load zorn} \
-	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top zorn} \
-${else} \
-NO \
-${endif}
+${execpi 120 $CONKY_HOME/scripts/machine-status}
 
 ${font arial black:size=7}INTERACTIVE JOBS > 1h${font}
-${execi 900 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/interabuse"}
+${execi 900 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/interabuse"}
 #
 ${if_existing /tmp/ssh-conky@lindgren:22}
-${execpi 300 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/showmyq"}
+${execpi 300 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/showmyq"}
 ${endif}\
 #
 ${if_existing /tmp/ssh-conky@ferlin:22}
 ${font arial black:size=7}EASY STATS:
 FERLIN: ${font}\
-${execi 300 $CONKY_SCRIPTS/conky_ssh ferlin "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
+${execi 300 $CONKY_HOME/scripts/conky_ssh ferlin "module add python/2.7.5 && module add easy && $CONKY_HOME/scripts/easystat"}
 ${endif}\
 #
 ${if_existing /tmp/ssh-conky@povel:22}\
 ${font arial black:size=7}POVEL: ${font}\
-${execi 300 $CONKY_SCRIPTS/conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
+${execi 300 $CONKY_HOME/scripts/conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_HOME/scripts/easystat"}
 ${endif}\

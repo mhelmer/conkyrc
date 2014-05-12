@@ -17,6 +17,7 @@ Usage: 1 - change the command in the 'subprocess.call' in
 """
 
 import sys
+import os
 import subprocess
 import datetime
 
@@ -43,7 +44,7 @@ def session_save_yourself( *args):
     #execute shutdowwn script
     #########################################################################################
     retcode = subprocess.call([
-        "$CONKY_SCRIPTS/kill_conky_ssh",
+        os.environ['CONKY_HOME'] + '/scripts/kill_conky_ssh',
          ], shell=True)
     ##########################################################################################
     if retcode != 0:
