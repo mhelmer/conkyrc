@@ -1,9 +1,8 @@
 #!/bin/bash
 
-export CONKYRC=$HOME/conky/conkyrc
-export CONKY_SCRIPTS=$HOME/conky/scripts
 export CONKY_HOME=$HOME/conky
-export MACHINES=ellen:ferlin:lindgren:povel:zorn
+export CONKYRC=$CONKY_HOME/conkyrc
+export MACHINES=cfs-aux-4:ellen:ferlin:lindgren:milner:povel:zorn
 
 # Later, we do this instead of repeating stuff
 # for m in ${MACHINES//:/}; do     echo "$m"; done

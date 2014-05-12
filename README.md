@@ -68,8 +68,8 @@ Checking AFS stats on home directory every 10 minutes.
 
 ```
 ${font arial black:size=7}VOLUME${goto 100}TYPE${goto 150}USED${goto 210}FREE${alignr 1}SIZE$font
-${font arial black:size=7}HOME:$font${goto 100}afs${goto 150}${execi 600 $CONKY_SCRIPTS/fs-conky used ~}${goto 210}${execi 600 $CONKY_SCRIPTS/fs-conky free ~}${alignr}${execi 600 $CONKY_SCRIPTS/fs-conky size ~}
-${execibar 600 $CONKY_SCRIPTS/fs-conky percent ~}
+${font arial black:size=7}HOME:$font${goto 100}afs${goto 150}${execi 600 $CONKY_HOME/scripts/fs-conky used ~}${goto 210}${execi 600 $CONKY_HOME/scripts/fs-conky free ~}${alignr}${execi 600 $CONKY_HOME/scripts/fs-conky size ~}
+${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~}
 ```
 
 For more details, see the `scripts/fs-conky`.
@@ -101,7 +101,7 @@ Check the interactive nodes on Lindgren every 15 minutes.
 
 ```
 ${font arial black:size=7}INTERACTIVE JOBS > 1h${font}
-${execi 900 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/interabuse"}
+${execi 900 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/interabuse"}
 ```
 
 See `scripts/interabuse` for more details.
@@ -117,7 +117,7 @@ This one prints output to be parsed by conky, so the formatting has to be change
 Check the queue every 5 min.
 
 ```
-${execpi 300 $CONKY_SCRIPTS/conky_ssh lindgren "$CONKY_SCRIPTS/showmyq"}
+${execpi 300 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/showmyq"}
 ```
 
 See `scripts/showmyq` for details.
@@ -132,7 +132,7 @@ Check EASY stats on povel every 5 min.
 
 ```
 ${font arial black:size=7}POVEL: ${font}\
-${execi 300 $CONKY_SCRIPTS/conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_SCRIPTS/easystat"}
+${execi 300 $CONKY_HOME/scripts/conky_ssh povel "module add python/2.7.5 && module add easy && $CONKY_HOME/scripts/easystat"}
 ```
 
 See `scripts/easystat` for more details.

@@ -6,7 +6,7 @@ module add conky
 source $HOME/conky/settings
 
 # Start conky and background ssh-processes
-$CONKY_SCRIPTS/launch_conky &
+$CONKY_HOME/scripts/launch_conky &
 
 # Python script watching for logout to kill the ssh processes
-$CONKY_SCRIPTS/execute_on_logout &
+$CONKY_HOME/scripts/execute_on_logout &
