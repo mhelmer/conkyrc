@@ -100,7 +100,7 @@ ${voffset -33}${goto 170}${font arial black:size=12}${time %B %Y}
 ${voffset -7}${goto 170}${font arial black:size=9}${time %A, week %V}
 ${font arial black:size=7}USERS: ${font} ${execi 60 $CONKY_HOME/scripts/who_compact}
 #
-${if_match "${execi 3600 cd $CONKY_HOME/scripts && git fetch origin master && git log HEAD..origin/master --oneline | wc -l}" == "0"}\
+${if_match "${execi 3600 cd $CONKY_HOME && git fetch origin master && git log HEAD..origin/master --oneline | wc -l}" == "0"}\
 ${else}\
 ${font arial black:size=7}CONKY:${font} Behind origin/master by ${execi 3600 cd $CONKY_HOME/scripts && git log HEAD..origin/master --oneline | wc -l} commits
 ${endif}\
