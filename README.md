@@ -30,6 +30,8 @@ Get conkyrc and the scripts
 git clone /afs/pdc.kth.se/misc/pdc/support-group/repos/conky-monitoring.git ~/conky
 ```
 
+Set the `$MACHINE` variable in `~/conky/settings` to the machines you want to get status for.
+
 Starting Conky
 --------------
 To avoid creating lots of connections, the `conky_multiplex` script is executed before starting conky.
@@ -74,22 +76,15 @@ For more details, see the `scripts/fs-conky`.
 
 ###Ping, load and top on a remote machine
 Part that checks status of different machines. This uses multiplexed SSH sessions in the given `conky_ssh` script.
-Conky tests if the machine responds to ping using the `machine-status` script. If it responds, it checks the load and top (cpu) process on that host.
+The `machine-status` script tests if the machine responds to ping. If it responds, it checks the load and top (cpu) process on that host and outputs it according to the template in `templates/machine-status`.
 
 ![Machine status screenshot](img/conky_machine_status.png)
 
 ####`.conkyrc` example
-Checking machine status on Ellen every other minute.
+Checking status on all `$MACHINES` every 120 seconds:
 
 ```
-${font arial black:size=7}CLUSTER${goto 75}PING${goto 115}LOAD${goto 150}TOP$font
-${font arial black:size=7}ELLEN${font} ${goto 75}\
-${if_match "${execi 120 $CONKY_SCRIPTS/machine-status ping ellen}" == "YES"}\
-YES ${goto 115}${execi 120 $CONKY_SCRIPTS/machine-status load ellen} \
-	${goto 150}${execi 120 $CONKY_SCRIPTS/machine-status top ellen} \
-${else} \
-NO \
-${endif}
+${execpi 120 $CONKY_HOME/scripts/machine-status}
 ```
 
 For more details, see the `scripts/machine-status`.
