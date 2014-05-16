@@ -19,14 +19,19 @@ print template[0]
 
 template = template[1]
 
+prog_host = re.compile('\<HOST\>')
+prog_ping = re.compile('\<PING\>')
+prog_load = re.compile('\<LOAD\>')
+prog_top = re.compile('\<TOP\>')
+
 for machine in machines_env.split(':'):
-    status_line = re.sub('\<CLUSTER\>', machine.upper(), template)
+    status_line = prog_host.sub(machine.upper(), template)
     ping_ret = subprocess.call(['ping', "-c1", "-q", machine],
                                stdout=DEVNULL,
                                stderr=DEVNULL)
 
     if ping_ret == 0:
-        status_line = re.sub('\<PING\>', 'YES', status_line)
+        status_line = prog_ping.sub('YES', status_line)
 
         try:
             machine_status = subprocess.check_output([
@@ -36,13 +41,12 @@ for machine in machines_env.split(':'):
             ]).splitlines()
 
             load = machine_status[0].split('loadavg: ')[1].split()[0]
-            status_line = re.sub('\<LOAD\>', load, status_line)
+            status_line = prog_load.sub(load, status_line)
 
             top = machine_status[1].split('top: ')[1].split()
-            status_line = re.sub('\<TOP\>',
-                                "%s: %s @ %.1f%%" % (top[1], top[11],
-                                                    float(top[8])),
-                                status_line)
+            status_line = prog_top.sub("%s: %s @ %.1f%%" % (
+                top[1], top[11], float(top[8])
+            ), status_line)
         except subprocess.CalledProcessError:
             status_line = re.sub('\<LOAD\>.*\<TOP\>', 'ERROR', status_line)
     else:

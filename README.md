@@ -49,6 +49,12 @@ To start conky on a NADABUNTU machine, if cloned as above, simply do:
 
 Then close the terminal. This file should be customized if you want to do things differently.
 
+To load it on login you can add the the following command to startup
+
+```bash
+bash -c "sleep 20; ~/conky/conky_env"
+```
+
 If you don't want to let the python script kill the backgrounded SSH-sessions, you can kill them yourself using
 ```bash
 ~/conky/scipts/kill_conky_ssh
