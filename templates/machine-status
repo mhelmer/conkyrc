@@ -1,2 +1,2 @@
-${font arial black:size=7}CLUSTER${goto 75}PING${goto 115}LOAD${goto 150}TOP$font
-${font arial black:size=7}<CLUSTER>$font ${goto 75}<PING>${goto 115}<LOAD>${goto 150}<TOP>$font
+${font arial black:size=7}HOST${goto 75}PING${goto 115}LOAD${goto 150}TOP$font
+${font arial black:size=7}<HOST>$font ${goto 75}<PING>${goto 115}<LOAD>${goto 150}<TOP>$font
