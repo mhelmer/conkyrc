@@ -158,7 +158,7 @@ ${top_mem name 2} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
 ${font arial black:size=10}${color orange}CLUSTER${color}${font arial black:size=10}MONITORING${color orange} ${hr 2}$color$font
 ${execpi 120 $CONKY_HOME/scripts/machine-status}
 
-${font arial black:size=7}INTERACTIVE JOBS > 1h${font}
+${font arial black:size=7}INTERACTIVE JOBS${font}
 ${execi 900 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/interabuse"}
 #
 ${if_existing /tmp/ssh-conky@lindgren:22}
@@ -168,7 +168,7 @@ ${endif}\
 ${if_existing /tmp/ssh-conky@ferlin:22}
 ${font arial black:size=7}EASY STATS:
 FERLIN: ${font}\
-${execi 300 $CONKY_HOME/scripts/conky_ssh ferlin "module add python/2.7.5 && module add easy && $CONKY_HOME/scripts/easystat"}
+${execpi 300 $CONKY_HOME/scripts/conky_ssh ferlin "module add python/2.7.5 && module add easy && $CONKY_HOME/scripts/easystat"}
 ${endif}\
 #
 ${if_existing /tmp/ssh-conky@povel:22}\

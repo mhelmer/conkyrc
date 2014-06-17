@@ -5,6 +5,8 @@ import re
 
 prog_aprun = re.compile("aprun")
 
+max_time = "1h00m"
+
 apstat = subprocess.Popen(["apstat", "-ar"], stdout=subprocess.PIPE).communicate()[0]
 apstat_inter = []
 for line in apstat.splitlines():
@@ -13,7 +15,7 @@ for line in apstat.splitlines():
                                   stdout=subprocess.PIPE).communicate()[0]
         apstat_inter.append(apstat.splitlines()[2])
 
-t1 = time.strptime("1h00m", "%Hh%Mm")
+t1 = time.strptime(max_time, "%Hh%Mm")
 abuse = False
 for line in apstat_inter:
     linesp = line.split()
@@ -26,7 +28,7 @@ for line in apstat_inter:
             command=linesp[7],
             apid=linesp[0]))
 if not abuse:
-    print('No such jobs')
+    print('No jobs longer than ' + max_time)
 
 
 """
