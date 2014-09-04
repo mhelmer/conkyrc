@@ -131,7 +131,8 @@ ${font arial black:size=7}ROOT:$font${goto 100}${fs_type /}${goto 150}${fs_used 
 ${fs_bar 6 /}$color
 #
 ${font arial black:size=10}${color orange}NETWORK${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
-${font arial black:size=7}LOCAL: $font${addr eth0} ${goto 170}${font arial black:size=7}EXTERNAL: $font${execi 14400 wget -qO- http://ipecho.net/plain}
+${font arial black:size=7}LOCAL: $font${addr eth0} ${goto 170}${font arial black:size=7}\
+EXTERNAL: $font${execi 14400 wget -T 5 -qO- http://ipecho.net/plain}
 ${font arial black:size=7}DOWN: $font$color${downspeed eth0}/s ${goto 170}${font arial black:size=7}UP: $font${upspeed eth0}/s
 ${downspeedgraph eth0 25,145} ${goto 170}${upspeedgraph eth0 25,145}
 ${font arial black:size=7}TOTAL: $font${totaldown eth0} ${goto 170}${font arial black:size=7}TOTAL: $font${totalup eth0}
