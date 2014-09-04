@@ -1,5 +1,11 @@
-Desktop candy and scripts for PDC
+Desktop candy and scripts for HPC
 =================================
+This is a collection of scripts with a `.conkyrc`, to keep track of the status
+of remote machines at HPC facilities. It can also fetch information about queue
+and node status from EASY and TORQUE.
+
+*Note that this README will soon be updated to better suit the general public.* 
+
 The whole thing looks like the image below. Scroll down for info!
 
 ![Full screenshot](img/conky.png)
