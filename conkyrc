@@ -90,7 +90,7 @@ mpd_password waterhouserock
 
 TEXT
 
-${font arial black:size=10}${color orange}SYSTEM${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
+${font arial black:size=10}${color orange}SYSTEM${color}INFORMATION${color orange} ${hr 2}$color$font
 ${font arial black:size=16}$nodename${font}
 ${font arial black:size=7}KERNEL: ${alignr}$font${kernel}
 ${font arial black:size=7}UPTIME: ${alignr}$font${uptime}
@@ -105,41 +105,41 @@ ${else}\
 ${font arial black:size=7}CONKY:${font} Behind origin/master by ${execi 3600 cd $CONKY_HOME/scripts && git log HEAD..origin/master --oneline | wc -l} commits
 ${endif}\
 #
-${font arial black:size=10}${color orange}CPU${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
+${font arial black:size=10}${color orange}CPU${color}INFORMATION${color orange} ${hr 2}$color$font
 ${font arial black:size=7}MODEL: $font ${execi 1000 cat /proc/cpuinfo | grep -m 1 "model name" | cut -c14-37} $alignr ${freq_g (1)} GHz
-${font arial black:size=7}USAGE (AVG): $font${cpu cpu0}% $alignr${font arial black:size=7}$color
+${font arial black:size=7}USAGE (AVG): $font${cpu cpu0}% $alignr$color
 ${cpugraph cpu0 FFFFFF FFFFFF}
 #${font arial black:size=7}CPU0: $font${cpu cpu1}% ${alignr}${cpubar cpu0 7,80}
-${font arial black:size=10}${color orange}MEMORY${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
+${font arial black:size=10}${color orange}MEMORY${color}INFORMATION${color orange} ${hr 2}$color$font
 ${font arial black:size=7}RAM: $font$memperc% ${alignr}$mem / $memmax
 ${membar 4}
 ${font arial black:size=7}SWAP: $font$swapperc% ${alignr}$swap / $swapmax
 ${swapbar 4}
-${font arial black:size=10}${color orange}DISK${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
-${font arial black:size=7}WRITE: $font$diskio_write/s ${goto 165}${font arial black:size=7}READ: $font$diskio_read/s
+${font arial black:size=10}${color orange}DISK${color}INFORMATION${color orange} ${hr 2}$color$font
+${font arial black:size=7}WRITE: $font$diskio_write/s ${goto 165}READ: $font$diskio_read/s
 ${diskiograph_write 20, 145}${goto 170}${diskiograph_read 20, 145}
 ${font arial black:size=7}VOLUME${goto 100}TYPE${goto 150}USED${goto 210}FREE${alignr 1}SIZE$font
 #${font arial black:size=7}HOME:$font${goto 100}${fs_type /home}${goto 150}${fs_used /home}${goto 210}${fs_free /home}${alignr}${fs_size /home}
 #${fs_bar 4 /home}$color
 ${font arial black:size=7}HOME:$font${goto 100}afs${goto 150}${execi 600 $CONKY_HOME/scripts/fs-conky used ~}${goto 210}${execi 600 $CONKY_HOME/scripts/fs-conky free ~}${alignr}${execi 600 $CONKY_HOME/scripts/fs-conky size ~}
 ${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~}
-#${font arial black:size=7}MHELM.0:$font${goto 100}afs${goto 150}${execi 600 $CONKY_HOME/scripts/fs-conky used ~/mhelm.0}${goto 210}${execi 600 $CONKY_HOME/scripts/fs-conky free ~/mhelm.0}${alignr}${execi 600 $CONKY_HOME/scripts/fs-conky size ~/mhelm.0}
-#${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~/mhelm.0}
+${font arial black:size=7}MHELM.0:$font${goto 100}afs${goto 150}${execi 600 $CONKY_HOME/scripts/fs-conky used ~/mhelm.0}${goto 210}${execi 600 $CONKY_HOME/scripts/fs-conky free ~/mhelm.0}${alignr}${execi 600 $CONKY_HOME/scripts/fs-conky size ~/mhelm.0}
+${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~/mhelm.0}
 ${font arial black:size=7}NOBACKUP:$font${goto 100}${fs_type /NOBACKUP}${goto 150}${fs_used /NOBACKUP}${goto 210}${fs_free /NOBACKUP}${alignr}${fs_size /NOBACKUP}
 ${fs_bar 6 /NOBACKUP}$color
 ${font arial black:size=7}ROOT:$font${goto 100}${fs_type /}${goto 150}${fs_used /}${goto 210}${fs_free /}${alignr}${fs_size /}
 ${fs_bar 6 /}$color
 #
-${font arial black:size=10}${color orange}NETWORK${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
-${font arial black:size=7}LOCAL: $font${addr eth0} ${goto 170}${font arial black:size=7}\
+${font arial black:size=10}${color orange}NETWORK${color}INFORMATION${color orange} ${hr 2}$color$font
+${font arial black:size=7}LOCAL: $font${addr eth0} ${goto 170}\
 EXTERNAL: $font${execi 14400 wget -T 5 -qO- http://ipecho.net/plain}
-${font arial black:size=7}DOWN: $font$color${downspeed eth0}/s ${goto 170}${font arial black:size=7}UP: $font${upspeed eth0}/s
+${font arial black:size=7}DOWN: $font$color${downspeed eth0}/s ${goto 170}UP: $font${upspeed eth0}/s
 ${downspeedgraph eth0 25,145} ${goto 170}${upspeedgraph eth0 25,145}
-${font arial black:size=7}TOTAL: $font${totaldown eth0} ${goto 170}${font arial black:size=7}TOTAL: $font${totalup eth0}
+${font arial black:size=7}TOTAL: $font${totaldown eth0} ${goto 170}TOTAL: $font${totalup eth0}
 # BANSHEE
 #
 ${if_running banshee}\
-${font arial black:size=10}${color orange}BANSHEE${color}${font arial black:size=10}INFORMATION${color orange} ${hr 2}$color$font
+${font arial black:size=10}${color orange}BANSHEE${color}INFORMATION${color orange} ${hr 2}$color$font
 ${font arial black:size=7}ARTIST: ${font}${exec conkyBanshee --datatype=AR}
 ${font arial black:size=7}TITLE: ${font}${exec conkyBanshee --datatype=TI}
 ${font arial black:size=7}ALBUM: ${font}${exec conkyBanshee --datatype=AL}
@@ -156,7 +156,7 @@ ${color orange}${top_mem name 1} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top
 ${top_mem name 2} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
 #
 # CLUSTER MONITORING
-${font arial black:size=10}${color orange}CLUSTER${color}${font arial black:size=10}MONITORING${color orange} ${hr 2}$color$font
+${font arial black:size=10}${color orange}CLUSTER${color}MONITORING${color orange} ${hr 2}$color$font
 ${execpi 120 $CONKY_HOME/scripts/machine-status}
 
 ${font arial black:size=7}INTERACTIVE JOBS${font}
