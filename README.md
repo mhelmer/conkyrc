@@ -22,7 +22,7 @@ It's located at:
 
 See below how to use it.
 
-###If not using the module
+### If not using the module
 Conky can be downloaded from [this webpage](http://conky.sourceforge.net) at sourceforge.
 On a NADABUNTU computer, I had to build the dependency lua, [link here](http://www.lua.org/download.html).
 
@@ -72,10 +72,10 @@ The whole thing looks like the image at the top. My `conkyrc` and the scripts is
 
 Below follows a small rundown of the different parts.
 
-###AFS-volumes
+### AFS-volumes
 ![AFS screenshot](img/conky_afs.png)
 
-####`.conkyrc` example
+#### `.conkyrc` example
 Checking AFS stats on home directory every 10 minutes.
 
 ```
@@ -86,13 +86,13 @@ ${execibar 600 $CONKY_HOME/scripts/fs-conky percent ~}
 
 For more details, see the `scripts/fs-conky`.
 
-###Ping, load and top on a remote machine
+### Ping, load and top on a remote machine
 Part that checks status of different machines. This uses multiplexed SSH sessions in the given `conky_ssh` script.
 The `machine-status` script tests if the machine responds to ping. If it responds, it checks the load and top (cpu) process on that host and outputs it according to the template in `templates/machine-status`.
 
 ![Machine status screenshot](img/conky_machine_status.png)
 
-####`.conkyrc` example
+#### `.conkyrc` example
 Checking status on all `$MACHINES` every 120 seconds:
 
 ```
@@ -101,14 +101,14 @@ ${execpi 120 $CONKY_HOME/scripts/machine-status}
 
 For more details, see the `scripts/machine-status`.
 
-###Use and abuse of interactive nodes on Lindgren
+### Use and abuse of interactive nodes on Lindgren
 Checks for interactive jobs that has been running for more than 1h.
 If such jobs are found, stats are printed about those jobs.
 It also reports how many of the interative nodes are in use and how many interactive jobs are running.
 
 ![Interabuse screenshot](img/conky_interabuse.png)
 
-####`.conkyrc` example
+#### `.conkyrc` example
 Check the interactive nodes on Lindgren every 15 minutes.
 
 ```
@@ -118,14 +118,14 @@ ${execi 900 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/interabu
 
 See `scripts/interabuse` for more details.
 
-###Lindgren queue
+### Lindgren queue
 Reports stats of your jobs in the queue. Active, idle and blocked.
 If you have no jobs in the queue, it reports the number of eligeble jobs in the queue.
 
 ![Lindgren queue screenshot](img/conky_lindgren_queue.png)
 
 This one prints output to be parsed by conky, so the formatting has to be changed in the script if desired.
-####`.conkyrc` example
+#### `.conkyrc` example
 Check the queue every 5 min.
 
 ```
@@ -134,12 +134,12 @@ ${execpi 300 $CONKY_HOME/scripts/conky_ssh lindgren "$CONKY_HOME/scripts/showmyq
 
 See `scripts/showmyq` for details.
 
-###Stats from EASY
+### Stats from EASY
 Reports how many nodes are up/defined on a machine running EASY.
 
 ![EASY stats screenshot](img/conky_easy_stats.png)
 
-####`.conkyrc` example
+#### `.conkyrc` example
 Check EASY stats on povel every 5 min.
 
 ```
